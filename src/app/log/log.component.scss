@@ -1,0 +1,12 @@
+.log-message {
+  padding: 0;
+
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+
+  .tag,
+  .tags {
+    margin-bottom: 0;
+  }
+}
