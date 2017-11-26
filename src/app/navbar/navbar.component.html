@@ -4,6 +4,12 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-end">
+      <a *ngIf="!(connected$ | async)" (click)="connect()" class="navbar-item">
+        Connect
+      </a>
+      <a *ngIf="connected$ | async" (click)="disconnect()" class="navbar-item">
+        Disconnect
+      </a>
       <a routerLink="settings" class="navbar-item">Settings</a>
     </div>
   </div>

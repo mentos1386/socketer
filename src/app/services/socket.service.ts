@@ -5,7 +5,7 @@ import { ISettingsState } from '../settings/settings.interface';
 import { IAppState } from '../store/store.interface';
 import * as io from 'socket.io-client';
 import { SOCKET_ACTION } from './socket.reducer';
-import { ISocketMessage, ISocketState } from './socket.interface';
+import { ISocketLog, ISocketMessage, ISocketState } from './socket.interface';
 
 @Injectable()
 export class SocketService {
@@ -22,10 +22,7 @@ export class SocketService {
 
   constructor(protected ngRedux: NgRedux<IAppState>) {
     this.settings$
-    .subscribe((settings) => {
-      this.settings = settings;
-      this.connect();
-    });
+    .subscribe((settings) => this.settings = settings);
 
     this.socketData$
     .subscribe(data => this.socketData = data);
@@ -51,11 +48,13 @@ export class SocketService {
     this.joinRoom(room);
 
     this.ngRedux.dispatch({
-      type: SOCKET_ACTION.MESSAGE,
-      payload: <ISocketMessage>{
-        room,
-        message,
+      type: SOCKET_ACTION.LOG,
+      payload: <ISocketLog>{
         type: 'SENT',
+        data: {
+          room,
+          message,
+        },
       },
     });
   }
@@ -75,11 +74,13 @@ export class SocketService {
   private listenOnRoom(room: string) {
     this.socket.on(room, (message) => {
       this.ngRedux.dispatch({
-        type: SOCKET_ACTION.MESSAGE,
-        payload: <ISocketMessage>{
-          room,
-          message,
+        type: SOCKET_ACTION.LOG,
+        payload: <ISocketLog>{
           type: 'RECEIVED',
+          data: {
+            room,
+            message,
+          },
         },
       });
     });
@@ -88,6 +89,12 @@ export class SocketService {
   private initListeners() {
     this.socket.on('connect', () => {
       this.ngRedux.dispatch({
+        type: SOCKET_ACTION.LOG,
+        payload: <ISocketLog>{
+          type: 'CONNECTED',
+        },
+      });
+      this.ngRedux.dispatch({
         type: SOCKET_ACTION.CONNECTED,
       });
       // Try to re-join rooms
@@ -95,6 +102,12 @@ export class SocketService {
     });
 
     this.socket.on('disconnect', () => {
+      this.ngRedux.dispatch({
+        type: SOCKET_ACTION.LOG,
+        payload: <ISocketLog> {
+          type: 'DISCONNECTED',
+        },
+      });
       this.ngRedux.dispatch({
         type: SOCKET_ACTION.DISCONNECTED,
       });

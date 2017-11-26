@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { select } from '@angular-redux/store';
 
 @Component({
   selector: 'app-main-editor',
@@ -9,9 +11,11 @@ import { FormControl } from '@angular/forms';
 })
 export class EditorComponent implements OnInit {
 
+  @select(['socket', 'connected'])
+  connected$: Observable<boolean>;
+
   room = new FormControl();
   message = new FormControl();
-
 
   constructor(protected socketService: SocketService) {
   }

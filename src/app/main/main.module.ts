@@ -7,12 +7,14 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule } from '@angular-redux/store';
 import { SocketService } from '../services/socket.service';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     NgReduxModule,
     CommonModule,
+    MomentModule,
   ],
   declarations: [
     MainComponent,

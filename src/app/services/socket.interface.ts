@@ -1,11 +1,16 @@
 export interface ISocketState {
   connected: boolean;
-  messages: ISocketMessage[];
+  log: ISocketLog[];
   rooms: string[];
 }
 
+export interface ISocketLog {
+  type: 'SENT' | 'RECEIVED' | 'CONNECTED' | 'DISCONNECTED';
+  data: ISocketMessage | any;
+  date?: Date;
+}
+
 export interface ISocketMessage {
-  type: 'SENT' | 'RECEIVED';
   room: string;
   message: any;
 }

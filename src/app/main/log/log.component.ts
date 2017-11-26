@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { select } from '@angular-redux/store';
+import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
-import { ISocketMessage } from '../../services/socket.interface';
+import { ISocketLog } from '../../services/socket.interface';
+import { IAppState } from '../../store/store.interface';
+import { SOCKET_ACTION } from '../../services/socket.reducer';
 
 @Component({
   selector: 'app-main-log',
@@ -10,13 +12,22 @@ import { ISocketMessage } from '../../services/socket.interface';
 })
 export class LogComponent implements OnInit {
 
-  @select(['socket', 'messages'])
-  messages$: Observable<ISocketMessage[]>;
+  @select(['socket', 'log'])
+  log$: Observable<ISocketLog[]>;
 
-  constructor() {
+  constructor(protected ngRedux: NgRedux<IAppState>) {
   }
 
   ngOnInit() {
   }
 
+  isTypeMessage(type: string) {
+    return type === 'SENT' || type === 'RECEIVED';
+  }
+
+  clearLog() {
+    this.ngRedux.dispatch({
+      type: SOCKET_ACTION.PURGE_LOG,
+    });
+  }
 }

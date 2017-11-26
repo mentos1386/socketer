@@ -1,7 +1,30 @@
-<section *ngFor="let message of messages$ | async" class="section log-message">
-  <div class="tags">
-    <span class="tag is-light">{{message.type}}</span>
-    <span class="tag is-dark">{{message.room}}</span>
+<div class="panel">
+  <div class="panel-heading log-heading">
+    <span>Log</span>
+    <button (click)="clearLog()" class="button is-small">Clear</button>
   </div>
-  <pre>{{message.message | json}}</pre>
-</section>
+
+  <p class="panel-tabs log-filters">
+    <a class="is-active">sent</a>
+    <a class="is-active">received</a>
+    <a class="is-active">connection</a>
+  </p>
+
+  <div class="panel-block log-item" *ngFor="let item of log$| async">
+
+    <div class="log-item-header log-{{item.type}}">
+      <span>
+        <small><b>{{item.type}}</b></small>
+        <span *ngIf="isTypeMessage(item.type)" class="tag is-dark">{{item.data.room}}</span>
+      </span>
+
+      <small class="is-pulled-right">
+        <time>{{item.date | amTimeAgo}}</time>
+      </small>
+    </div>
+
+    <pre class="log-item-content"
+         *ngIf="isTypeMessage(item.type)">{{item.data.message | json}}</pre>
+  </div>
+</div>
+

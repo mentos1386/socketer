@@ -3,8 +3,16 @@
     <input class="input" [formControl]="room" type="text" placeholder="Room name">
   </div>
   <div class="control">
-    <button type="submit" (click)="sendMessage()" class="button is-primary">Submit</button>
-    <button type="submit" (click)="joinRoom()" class="button is-info">Join</button>
+    <button [disabled]="!connected$ | async"
+            type="submit"
+            (click)="sendMessage()"
+            class="button is-primary">Submit
+    </button>
+    <button [disabled]="!connected$ | async"
+            type="submit"
+            (click)="joinRoom()"
+            class="button is-info">Join
+    </button>
   </div>
 </div>
 

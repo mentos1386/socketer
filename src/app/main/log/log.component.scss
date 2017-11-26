@@ -1,12 +1,36 @@
-.log-message {
+@import "~bulma";
+
+.log-heading {
+  flex-direction: row;
+  justify-content: space-between;
+  display: flex;
+}
+
+.log-filters {
+}
+
+.log-item {
+  flex-direction: column;
   padding: 0;
 
-  &:not(:first-child) {
-    margin-top: 1em;
+  .log-item-header {
+    padding: 0.5em 0.5em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dbdbdb;
   }
 
-  .tag,
-  .tags {
-    margin-bottom: 0;
+  .log-item-content {
+    width: 100%;
   }
+
+}
+
+.log-CONNECTED {
+  background: $success;
+}
+
+.log-DISCONNECTED {
+  background: $danger;
 }
