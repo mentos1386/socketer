@@ -1,0 +1,7 @@
+<section *ngFor="let message of messages$ | async" class="section log-message">
+  <div class="tags">
+    <span class="tag is-light">{{message.type}}</span>
+    <span class="tag is-dark">{{message.room}}</span>
+  </div>
+  <pre>{{message.message | json}}</pre>
+</section>

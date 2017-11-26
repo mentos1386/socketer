@@ -1,0 +1,18 @@
+<h3 class="subtitle">Connection</h3>
+
+<div class="field">
+  <label class="label">Host</label>
+  <div class="control">
+    <input class="input"
+           type="text"
+           [formControl]="host"
+           value="{{host$ | async}}"
+           placeholder="http://localhost:4010">
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <button (click)="saveSettings()" class="button is-success">Save</button>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<nav class="panel">
+  <p class="panel-heading">
+    Active Rooms
+  </p>
+
+  <a *ngFor="let room of rooms$ | async" class="panel-block">{{room}}</a>
+</nav>

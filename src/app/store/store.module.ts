@@ -29,7 +29,7 @@ export class StoreModule {
     // it too.
     store.configureStore(
       rootReducer,
-      {},
+      <IAppState>{},
       [createLogger(), ...rootEpics.createEpics()],
       [].concat(devTools.isEnabled() ? [devTools.enhancer()] : []));
 
@@ -42,6 +42,6 @@ export class StoreModule {
     provideReduxForms(store);
 
     // Begin periodically persisting the store
-    persistStore(store);
+    persistStore(store, null, () => store.getState());
   }
 }
