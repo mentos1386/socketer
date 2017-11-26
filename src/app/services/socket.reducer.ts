@@ -12,6 +12,7 @@ export const SOCKET_ACTION = {
   DISCONNECTED: 'DISCONNECTED',
   MESSAGE: 'MESSAGE',
   JOINED_ROOM: 'JOINED_ROOM',
+  PURGE: 'PURGE',
 };
 
 export const socketReducer: Reducer<ISocketState> = (
@@ -27,6 +28,8 @@ export const socketReducer: Reducer<ISocketState> = (
       return Object.assign({}, state, { messages: [action.payload, ...state.messages] });
     case SOCKET_ACTION.JOINED_ROOM:
       return Object.assign({}, state, { rooms: [action.payload, ...state.rooms] });
+    case SOCKET_ACTION.PURGE:
+      return INITIAL_STATE;
   }
   return state;
 };
