@@ -1,21 +1,9 @@
-<div class="field is-grouped">
-  <div class="control is-expanded">
-    <input class="input" [formControl]="room" type="text" placeholder="Room name">
-  </div>
-  <div class="control">
-    <button [disabled]="!connected$ | async"
-            type="submit"
-            (click)="sendMessage()"
-            class="button is-primary">Submit
-    </button>
-    <button [disabled]="!connected$ | async"
-            type="submit"
-            (click)="joinRoom()"
-            class="button is-info">Join
-    </button>
-  </div>
+<div class="tabs">
+  <ul>
+    <li routerLinkActive="is-active" *ngFor="let tab of tabs$ | async">
+      <a [routerLink]="['/tab', tab.id]" >{{tab.id}} | {{ tab.room}}</a>
+    </li>
+    <li><a (click)="newTab()">+</a></li>
+  </ul>
 </div>
-
-<textarea class="textarea" [formControl]="message" placeholder="{}"></textarea>
-
-
+<router-outlet></router-outlet>

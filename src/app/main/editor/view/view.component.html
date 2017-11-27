@@ -1,0 +1,19 @@
+<div class="field is-grouped">
+  <div class="control is-expanded">
+    <input class="input" [formControl]="room" type="text" placeholder="Room name">
+  </div>
+  <div class="control">
+    <button [disabled]="!connected$ | async"
+            type="submit"
+            (click)="sendMessage()"
+            class="button is-primary">Submit
+    </button>
+    <button [disabled]="!connected$ | async"
+            type="submit"
+            (click)="joinRoom()"
+            class="button is-info">Join
+    </button>
+  </div>
+</div>
+
+<textarea class="textarea" cols="20" [formControl]="message" placeholder="{}"></textarea>

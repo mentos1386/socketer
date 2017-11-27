@@ -4,6 +4,7 @@ import { settingsReducer } from '../settings/settings.reducer';
 import { socketReducer } from '../services/socket.reducer';
 import { persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { editorReducer } from '../main/editor/editor.reducer';
 
 // Persistence config
 const config = {
@@ -19,4 +20,5 @@ export const rootReducer = composeReducers(
     router: routerReducer,
     settings: settingsReducer,
     socket: socketReducer,
+    editor: editorReducer,
   }));

@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { select } from '@angular-redux/store';
+import { NgRedux, select } from '@angular-redux/store';
+import { Router } from '@angular/router';
+import { IEditorTab } from './editor.interface';
+import { IAppState } from '../../store/store.interface';
+import { EDITOR_ACTION } from './editor.reducer';
 
 @Component({
   selector: 'app-main-editor',
@@ -11,32 +15,26 @@ import { select } from '@angular-redux/store';
 })
 export class EditorComponent implements OnInit {
 
-  @select(['socket', 'connected'])
-  connected$: Observable<boolean>;
+  @select(['editor', 'tabs'])
+  tabs$: Observable<IEditorTab[]>;
 
-  room = new FormControl();
-  message = new FormControl();
-
-  constructor(protected socketService: SocketService) {
+  constructor(private ngRedux: NgRedux<IAppState>, private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  sendMessage() {
-    let message = this.message.value;
-
-    try {
-      message = JSON.parse(message);
-    } catch (e) {
-
-    }
-
-    this.socketService.sendMessage(this.room.value, message);
-  }
-
-  joinRoom() {
-    this.socketService.joinRoom(this.room.value);
+  newTab() {
+    const tab = <IEditorTab> {
+      id: Math.floor(Math.random() * 1000),
+      room: '',
+      message: '',
+    };
+    this.ngRedux.dispatch({
+      type: EDITOR_ACTION.NEW_TAB,
+      payload: tab,
+    });
+    this.router.navigate(['tab', tab.id]);
   }
 
 }

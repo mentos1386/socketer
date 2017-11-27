@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { IAppState } from '../../store/store.interface';
 import { SETTING_ACTION } from '../settings.reducer';
 import { SOCKET_ACTION } from '../../services/socket.reducer';
+import { EDITOR_ACTION } from '../../main/editor/editor.reducer';
 
 @Component({
   selector: 'app-settings-app',
@@ -27,6 +28,9 @@ export class SettingsAppComponent implements OnInit {
     });
     this.ngRedux.dispatch({
       type: SOCKET_ACTION.PURGE,
+    });
+    this.ngRedux.dispatch({
+      type: EDITOR_ACTION.PURGE,
     });
   }
 

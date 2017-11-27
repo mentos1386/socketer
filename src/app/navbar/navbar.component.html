@@ -10,7 +10,7 @@
       <a *ngIf="connected$ | async" (click)="disconnect()" class="navbar-item">
         Disconnect
       </a>
-      <a routerLink="settings" class="navbar-item">Settings</a>
+      <a routerLink="settings" routerLinkActive="active" class="navbar-item">Settings</a>
     </div>
   </div>
 </nav>

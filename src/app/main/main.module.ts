@@ -8,9 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgReduxModule } from '@angular-redux/store';
 import { SocketService } from '../services/socket.service';
 import { MomentModule } from 'angular2-moment';
+import { EditorViewComponent } from './editor/view/view.component';
+import { mainRoutes } from './main.routes';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
+    RouterModule.forChild(mainRoutes),
     ReactiveFormsModule,
     NgReduxModule,
     CommonModule,
@@ -21,12 +25,12 @@ import { MomentModule } from 'angular2-moment';
     NavigatorComponent,
     LogComponent,
     EditorComponent,
+    EditorViewComponent,
   ],
   exports: [
     MainComponent,
     NavigatorComponent,
     LogComponent,
-    EditorComponent,
   ],
   providers: [SocketService],
 })

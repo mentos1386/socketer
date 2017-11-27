@@ -72,7 +72,7 @@ export class SocketService {
   }
 
   private listenOnRoom(room: string) {
-    this.socket.on(room, (message) => {
+    this.socket.once(room, (message) => {
       this.ngRedux.dispatch({
         type: SOCKET_ACTION.LOG,
         payload: <ISocketLog>{
